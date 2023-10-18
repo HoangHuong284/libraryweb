@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<style>
+body {
+	background-image:
+		url("https://cf.shopee.vn/file/e8ff93e79015d389028ee1207c930041");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+</style>
+</head>
+<body>
+	<div class="container text-center">
+		<h1>Library</h1>
+		<!-- <h3>
+			<a th:href="@{/books}">Books</a>
+		</h3> -->
+		<h3>
+			<a th:href="@{/registration}">Register</a>
+		</h3>
+		<h3>
+			<a th:href="@{/login}">Login</a>
+		</h3>
+	</div>
+		<div class="container">
+		<div class="row" >
+			<h1>List Books</h1>
+		</div>
+		<div class = "row">
+			<div class = "col-lg-3">
+				<a th:if="${session.email!=null}"  th:href = "@{/addform}" class = "btn btn-primary btn-sm mb-3"> Add Book</a>
+				<a th:if="${session.email!=null}"  th:href = "@{/logout}" class = "btn btn-primary btn-sm mb-3"> Logout</a>
+			</div>
+		</div>
+
+		<table class="table table-striped table-bordered ">
+			<thead class = "table-dark">
+				<tr>
+					<th>TiÃªu Äá»</th>
+					<th>TÃ¡c giáº£</th>
+					<th>Thá» loáº¡i</th>
+					<th>NgÃ y phÃ¡t hÃ nh</th>
+					<th>Sá» trang</th>
+					<th>Sold</th>
+					<th>MÃ´ táº£</th>
+					<				
+					<th th:if="${session.email!=null}">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book:${books}">
+					<td th:text="${book.getTieude()}"></td>
+					<td th:text="${book.getTacgia()}"></td>
+					<td th:text="${book.getTheloai()}"></td>
+					<td th:text="${book.getNgayphathanh()}"></td>
+					<td th:text="${book.getSotrang()}"></td>
+					<td th:text="${book.getSold()}"></td>
+					<td th:text="${book.getMota()}"></td>				
+					<td th:if="${session.email!=null}">					
+					<a th:href="@{book/view/{id}(id = ${book.getId()})}"  class="btn btn-success" >View</a>					
+						<form th:action="@{book/delete/{id}(id= ${book.getId()})}"  th:method="delete">
+							<button class="btn btn-danger" type="submit" >Delete</button>
+						</form>
+					</td>					
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+	
+</body>
+</html>
